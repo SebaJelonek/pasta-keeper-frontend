@@ -1,0 +1,47 @@
+.navigation-bar {
+  display: flex;
+  font-size: 1.5rem;
+  width: 85%;
+  margin: 0 auto;
+}
+.navigation-bar__color {
+  margin-bottom: 2em;
+  background-color: #011462;
+  color: aliceblue;
+}
+.navigation-bar > h1 {
+  margin: 24px 0;
+  font-weight: 600;
+}
+.nav-list {
+  list-style: none;
+  display: flex;
+  flex-direction: row-reverse;
+  width: 35%;
+  margin-left: auto;
+}
+.nav-element {
+  margin: 0 auto;
+}
+.nav-element__link {
+  cursor: pointer;
+  color: aliceblue;
+  text-decoration: none;
+  transition: 500ms cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+.nav-element__link:hover + hr {
+  width: 100%;
+  visibility: visible;
+}
+hr {
+  margin-top: 0.1px;
+  width: 0;
+  visibility: hidden;
+  color: red;
+  transition: all 250ms ease-in;
+}
+.name {
+  margin: 0;
+  padding-top: 0.5em;
+  text-align: center;
+}

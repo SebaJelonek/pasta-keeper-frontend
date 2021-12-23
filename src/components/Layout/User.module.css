@@ -1,0 +1,10 @@
+.ban-icon {
+  cursor: pointer;
+  filter: invert(65%) sepia(12%) saturate(714%) hue-rotate(308deg)
+    brightness(122%) contrast(107%);
+  transition: filter 325ms ease-in;
+}
+.ban-icon:hover {
+  filter: invert(47%) sepia(18%) saturate(5028%) hue-rotate(324deg)
+    brightness(100%) contrast(96%);
+}
