@@ -3,7 +3,7 @@ import { useContext } from 'react';
 import AuthContext from '../store/auth-context';
 import Home from '../Pages/Home';
 import UserPaste from '../Pages/UserPaste';
-import New from '../Pages/New';
+import NewPaste from '../Pages/NewPaste';
 import Register from '../Pages/Register';
 import MyLink from './MyLink';
 import Login from '../Pages/Login';
@@ -32,7 +32,7 @@ function Nav() {
     homeLink: (
       <li className={classes['nav-element']}>
         <Link className={classes['nav-element__link']} to='/'>
-          Home
+          All Paste
         </Link>
         <hr />
       </li>
@@ -40,15 +40,15 @@ function Nav() {
     userPasteLink: (
       <li className={classes['nav-element']}>
         <Link className={classes['nav-element__link']} to='/user-paste'>
-          User Paste
+          Your Paste
         </Link>
         <hr />
       </li>
     ),
     newPasteLink: (
       <li className={classes['nav-element']}>
-        <Link className={classes['nav-element__link']} to='/new'>
-          New
+        <Link className={classes['nav-element__link']} to='/new-paste'>
+          Create Paste
         </Link>
 
         <hr />
@@ -82,9 +82,9 @@ function Nav() {
           <h1>Pasta Keeper</h1>
           <ul className={classes['nav-list']}>
             {isLogged ? navLinks.logoutLink : navLinks.registerLink}
-            {isLogged && navLinks.newPasteLink}
+            {!isAdmin && isLogged && navLinks.newPasteLink}
             {!isLogged && navLinks.loginLink}
-            {isLogged && navLinks.userPasteLink}
+            {!isAdmin && isLogged && navLinks.userPasteLink}
             {navLinks.homeLink}
             {isAdmin && navLinks.adminShowUsersLink}
           </ul>
@@ -105,12 +105,12 @@ function Nav() {
           }
         />
         <Route
-          path='/new'
+          path='/new-paste'
           element={
             isBanned ? (
               <Disabled reason={'You are banned'} />
             ) : isLogged ? (
-              <New />
+              <NewPaste />
             ) : (
               <Login reason={'You have to login in order to create a paste'} />
             )

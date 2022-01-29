@@ -16,3 +16,12 @@
   box-shadow: 0px 0 17px 0px rgb(0, 0, 0, 0.35);
   color: #fff;
 }
+.card-big__p0 {
+  padding: 0;
+  border-radius: 5px;
+  margin: 0 auto;
+  width: 800px;
+  background-color: #011462;
+  box-shadow: 0px 0 17px 0px rgb(0, 0, 0, 0.35);
+  color: #fff;
+}

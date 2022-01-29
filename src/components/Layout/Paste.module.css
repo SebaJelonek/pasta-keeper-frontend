@@ -1,6 +1,7 @@
 .btn-container {
   display: flex;
   flex-direction: row-reverse;
+  margin-top: 1em;
 }
 button {
   cursor: pointer;
@@ -21,4 +22,20 @@ button {
   border-style: none;
   border-radius: 3px;
   font-weight: 500;
+}
+.btn-cancel {
+  font-size: 1rem;
+  padding: 0.35em 0.5em;
+  text-align: left;
+  background-color: #c82300;
+  color: aliceblue;
+  border-style: none;
+  border-radius: 3px;
+  font-weight: 500;
+}
+
+.paste-title {
+  margin-top: 0;
+  margin-bottom: 0.5em;
+  font-size: 1.25rem;
 }

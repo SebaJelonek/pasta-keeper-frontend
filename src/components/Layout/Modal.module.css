@@ -1,0 +1,33 @@
+.modal {
+  position: absolute;
+  width: 100%;
+  left: 0;
+  top: 0;
+  padding-top: 11.4em;
+  padding-bottom: 5em;
+  background-color: rgba(30, 0, 0, 0.8);
+}
+.modal-btn {
+  background-color: transparent;
+  border-color: transparent;
+  font-size: 1.25em;
+  width: 100%;
+  color: aliceblue;
+  margin: 0;
+  padding: 1.5em;
+  cursor: pointer;
+}
+.body-part {
+  max-width: 800px;
+  margin: 0 auto 0.5em auto;
+  text-align: left;
+  z-index: 10;
+}
+strong {
+  cursor: pointer;
+  transition: text-shadow 350ms ease-in;
+  color: #00d077;
+}
+strong:hover {
+  text-shadow: 1px 1px 9px #00ff92;
+}

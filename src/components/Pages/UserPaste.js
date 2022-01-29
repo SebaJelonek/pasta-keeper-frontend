@@ -2,22 +2,36 @@ import { useState, useContext, useEffect } from 'react';
 import AuthContext from '../store/auth-context';
 import Card from '../Layout/Card';
 import Paste from '../Layout/Paste';
+import Pagination from '../Layout/Pagination';
 import classes from './UserPaste.module.css';
 
 function About() {
   const [response, setResponse] = useState(false);
   const [pastes, setPastes] = useState([]);
   const ctx = useContext(AuthContext);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pastePerPage] = useState(12);
 
-  let pasteList = pastes.map((paste) => {
+  // get current pastes
+  const indexOfTheLastPaste = currentPage * pastePerPage;
+  const indexOfTheFirstPaste = indexOfTheLastPaste - pastePerPage;
+  const currentPastes = pastes.slice(indexOfTheFirstPaste, indexOfTheLastPaste);
+
+  let pasteList = currentPastes.map((paste) => {
     return (
       <div className={classes['card-container']} key={paste._id}>
         <Card size='small'>
           <Paste
+            userPaste={true}
             _id={paste._id}
             title={paste.pasteTitle}
-            body={paste.pasteBody}
-          ></Paste>
+            body={
+              paste.pasteBody.split('').length > 250
+                ? paste.pasteBody.split('').splice(0, 249)
+                : paste.pasteBody
+            }
+            fullBody={paste.pasteBody}
+          />
         </Card>
       </div>
     );
@@ -46,7 +60,7 @@ function About() {
         throw error;
       });
 
-    //this is a wrong use case of useEffect, but i do not know how to do i properly
+    //this is a wrong use case of useEffect,
     // async function getPastes() {
     //   const res = await fetch('http://localhost:1337/api/user/get-pastas', {
     //     method: 'POST',
@@ -65,7 +79,14 @@ function About() {
     // }
     // getPastes();
     ////////////////////////////////////////////////////////
+    //
   }, [ctx.name]);
+
+  function paginationHandler(pageNumber) {
+    console.log('anything');
+    const newPageNumber = parseInt(pageNumber.target.textContent);
+    setCurrentPage(newPageNumber);
+  }
 
   return (
     <div className={classes.container}>
@@ -75,6 +96,11 @@ function About() {
           <div className={classes['pastes-container']}>{pasteList}</div>
         </div>
       )}
+      <Pagination
+        totalPastes={pastes.length}
+        pastePerPage={pastePerPage}
+        paginationHandler={paginationHandler}
+      />
     </div>
   );
 }

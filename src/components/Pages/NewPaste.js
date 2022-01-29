@@ -1,7 +1,7 @@
 import { useState, useContext } from 'react';
 import AuthContext from '../store/auth-context';
 import Card from '../Layout/Card';
-import classes from './New.module.css';
+import classes from './NewPaste.module.css';
 
 function New() {
   const [pasteTitle, setPasteTitle] = useState('');

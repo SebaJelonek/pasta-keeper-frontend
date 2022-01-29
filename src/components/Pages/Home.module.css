@@ -19,3 +19,16 @@
   border-radius: 3px;
   font-weight: 500;
 }
+.title {
+  display: inline-block;
+  text-align: right;
+  width: 56%;
+  margin-top: 0;
+}
+.page {
+  display: inline-block;
+  text-align: right;
+  width: 44%;
+  padding-right: 2em;
+  margin-top: 0;
+}

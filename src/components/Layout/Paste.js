@@ -2,7 +2,7 @@ import { Fragment, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import classes from './Paste.module.css';
 
-function Paste({ title, body, _id }) {
+function Paste({ title, body, _id, showPaste, userPaste, fullBody }) {
   const [editable, setEditable] = useState(false);
   const [titleContent, setTitleContent] = useState(title);
   const [bodyContent, setBodyContent] = useState(body);
@@ -23,8 +23,17 @@ function Paste({ title, body, _id }) {
     </svg>
   );
 
+  //bodyContent is string
   function editPaste() {
+    console.log(fullBody);
     setEditable(true);
+    if (typeof bodyContent === 'object') {
+      setBodyContent(bodyContent.join('').toString());
+    }
+  }
+
+  function cancelPaste() {
+    setEditable(false);
   }
 
   function onChangeHandlerTitle(e) {
@@ -52,7 +61,7 @@ function Paste({ title, body, _id }) {
 
   async function savePaste() {
     setEditable(false);
-
+    console.log(bodyContent);
     const res = await fetch(
       'https://pasta-keeper.herokuapp.com/api/user/edit-pasta',
       {
@@ -67,45 +76,78 @@ function Paste({ title, body, _id }) {
     );
     const data = await res.json();
     if (data.status !== 'ok') {
-      console.log('something went wrong');
+      console.log(typeof bodyContent);
+    } else {
+      console.log(typeof bodyContent);
     }
   }
+
+  function showPasteClickHandler() {
+    if (userPaste) {
+      return;
+    } else showPaste(_id);
+  }
+
+  const BodyText = () => {
+    return (
+      <div>
+        {bodyContent}... <strong>click for more</strong>
+        <hr />
+      </div>
+    );
+  };
 
   return (
     <Fragment>
       {!editable ? (
-        <Fragment>
-          <h4>{titleContent}</h4>
-          <div>{bodyContent}</div>
-        </Fragment>
+        <div
+          style={{ height: 160.667 + 'px' }}
+          onClick={
+            bodyContent.length >= 249 ? showPasteClickHandler : undefined
+          }
+        >
+          <Fragment>
+            <h4 className={classes['paste-title']}>{titleContent}</h4>
+            <div>{bodyContent.length >= 249 ? <BodyText /> : bodyContent}</div>
+          </Fragment>
+        </div>
       ) : (
-        <Fragment>
-          <input
-            type='text'
-            value={titleContent}
-            onChange={onChangeHandlerTitle}
-          />
-          <textarea
-            id=''
-            cols='30'
-            rows='10'
-            defaultValue={bodyContent}
-            onChange={onChangeHandlerBody}
-          ></textarea>
-        </Fragment>
+        <div>
+          <Fragment>
+            <input
+              type='text'
+              value={titleContent}
+              onChange={onChangeHandlerTitle}
+            />
+            <textarea
+              cols='30'
+              rows='10'
+              defaultValue={fullBody}
+              onChange={onChangeHandlerBody}
+            />
+          </Fragment>
+        </div>
       )}
-      <div className={classes['btn-container']}>
-        {trashIcon}
-        {!editable ? (
-          <button className={classes.btn} onClick={editPaste}>
-            Edit
-          </button>
-        ) : (
-          <button className={classes.btn} onClick={savePaste}>
-            Save
-          </button>
-        )}
-      </div>
+
+      {userPaste && (
+        <div className={classes['btn-container']}>
+          {trashIcon}
+          {!editable ? (
+            <button className={classes.btn} onClick={editPaste}>
+              Edit
+            </button>
+          ) : (
+            <Fragment>
+              <button className={classes.btn} onClick={savePaste}>
+                Save
+              </button>
+              <button className={classes['btn-cancel']} onClick={cancelPaste}>
+                Cancel
+              </button>
+            </Fragment>
+          )}
+        </div>
+      )}
     </Fragment>
   );
 }

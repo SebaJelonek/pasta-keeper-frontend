@@ -28,8 +28,6 @@ function App() {
   function loginHandler() {
     const token = window.localStorage.getItem('jwt');
     if (token) {
-      console.log('token');
-      console.log(jwt.decode(token));
       setIsLogged(true);
       setIsAdmin(jwt.decode(token).isAdmin);
       setUserName(jwt.decode(token).id);

@@ -9,7 +9,6 @@ function Register() {
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const [error, setError] = useState(false);
-  const [isAdmin, setIsAdmin] = useState(false);
   const ctx = useContext(AuthContext);
   const navigate = useNavigate();
 
@@ -35,7 +34,6 @@ function Register() {
         body: JSON.stringify({
           name,
           password,
-          isAdmin,
         }),
       }
     );
@@ -99,10 +97,6 @@ function Register() {
     }
   }
 
-  function isAdminHandler() {
-    setIsAdmin(!isAdmin);
-  }
-
   return (
     <Card size={'small'}>
       <form className={classes['register-form']} onSubmit={submitInputes}>
@@ -123,16 +117,6 @@ function Register() {
           placeholder='Password'
           onChange={passwordValue}
           value={password}
-        />
-        <label htmlFor='isAdmin'>
-          This account is going to be {!isAdmin ? 'user' : 'admin'}. Check box
-          below to become {isAdmin ? 'a user' : 'an admin'}
-        </label>
-        <input
-          onChange={isAdminHandler}
-          type='checkbox'
-          name='isAdmin'
-          id='isAdmin'
         />
         <input type='submit' value='Sign up' className={classes.btn} />
       </form>
